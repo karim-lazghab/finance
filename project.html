@@ -89,7 +89,7 @@
 		<form> 
 			<div class="form-control"> 
 				<label for="amount">Montant place:</label> 
-				<input type="number" id="#amount2" name="amount" required> 
+				<input type="number" id="amount2" name="amount" required> 
 			</div> 
 			<div class="form-control"> 
 				<label for="discountRate">Taux d'interet (en %) :</label> 
@@ -133,9 +133,9 @@
 		let discountRate = document.querySelector("#discountRate").value;
 		let discountDate = new Date(document.querySelector("#discountDate").value);
 		let dueDate = new Date(document.querySelector("#dueDate").value);
-		let diff = dueDate.getTime() - discountDate.getTime();
-		let days = diff / (1000 * 3600 * 24);
-		let discountCost = (amount * discountRate * days) / 36500;
+		let diff = dueDate.getTime() - discountDate.getTime(); //diff en millisecondes
+		let days = diff / (1000 * 3600 * 24); 
+		let discountCost = (amount * discountRate * days) / (365*100);
 		let discountreel = discountCost / amount*100;
 
 		document.querySelector("#result").innerHTML = "Le coût de l'escompte est de : " + discountCost.toFixed(2) + " TND";
@@ -150,7 +150,7 @@
 			let discountRate = parseFloat(document.querySelector("#discountRate2").value);
 			let discountDate = new Date(document.querySelector("#discountDate2").value);
 			let dueDate = new Date(document.querySelector("#dueDate2").value);
-			let diff = dueDate.getTime() - discountDate.getTime();
+			let diff = dueDate.getTime() - discountDate.getTime(); //diff en millisecondes
 			let days = diff / (1000 * 3600 * 24);
 			let interest = (amount * discountRate * days) / (365 * 100);
 			let valeurAjoute = amount + interest;
