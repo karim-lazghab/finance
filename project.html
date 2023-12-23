@@ -1,0 +1,164 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>Calcul du coût de l'escompte</title> 
+	<style> 
+		.container { 
+			width: 500px; 
+			margin: 0 auto; 
+			text-align: center; 
+		} 
+		.form-control { 
+			width: 50%; 
+			margin: 20px auto; 
+			padding: 10px; 
+			text-align: center; 
+			border-radius: 5px; 
+			border: 1px solid #ccc; 
+		} 
+		input[type="submit"] { 
+			width: 20%; 
+			padding: 10px; 
+			margin-top: 20px; 
+			background-color: green; 
+			color: white; 
+			border-radius: 5px; 
+			border: none; 
+			cursor: pointer; 
+		} 
+		input[type="submit"]:hover { 
+			background-color: lightgreen; 
+		} 
+		p { 
+			margin-top: 20px; 
+			font-size: 18px; 
+		} 
+	</style> 
+</head> 
+<body> 
+	<div class="container"> 
+		<h2>Calcul du coût de l'escompte</h2> 
+		<form> 
+			<div class="form-control"> 
+				<label for="amount">Montant de l'escompte :</label> 
+				<input type="number" id="amount" name="amount" required> 
+			</div> 
+			<div class="form-control"> 
+				<label for="discountRate">Taux d'escompte (en %) :</label> 
+				<input type="number" id="discountRate" name="discountRate" required> 
+			</div> 
+			<div class="form-control"> 
+				<label for="discountDate">Date de l'escompte :</label> 
+				<input type="date" id="discountDate" name="discountDate" required> 
+			</div> 
+			<div class="form-control"> 
+				<label for="dueDate">Date d'échéance :</label> 
+				<input type="date" id="dueDate" name="dueDate" required> 
+			</div> 
+			<input type="submit" value="Calculer" onclick="calculecheance()"> 
+		</form> 
+		<p id="result"> 
+		</p> 
+		<p id="reel"> 
+		</p> 
+
+		<h1>Formule de calcul</h1>
+		<p>
+			Coût de l'escompte = Montant de l'escompte * Taux d'escompte * Nombre de jours entre la date de l'escompte et la date d'échéance / 365
+			<br>
+			Où le taux d'escompte est donné comme étant 8% HT, le montant de l'escompte est la somme d'argent que vous avez utilisée sur la ligne EPC et le nombre de jours entre la date de l'escompte et la date d'échéance représente la durée pendant laquelle vous avez utilisé la ligne d'escompte.
+			<br>
+			Par exemple, si vous avez utilisé 10 000 $ sur la ligne EPC pendant 60 jours, le coût de l'escompte serait de :
+			<br>
+			10 000 $ * 8% * 60 / 365 = 128 $
+			<br>
+			Veuillez noter que ce calcul ne tient pas compte de tous les autres frais associés à l'utilisation de la ligne d'escompte, tels que les frais d'intérêts, les frais de dossier ou les frais de gestion. Il est important de consulter les conditions générales de votre contrat pour connaître tous les coûts associés à l'utilisation de la ligne d'escompte.
+
+
+
+
+		</p>
+
+
+
+	</div> 
+	<div class="container"> 
+		<h2>Calcul de valeur acquise </h2> 
+		<form> 
+			<div class="form-control"> 
+				<label for="amount">Montant place:</label> 
+				<input type="number" id="#amount2" name="amount" required> 
+			</div> 
+			<div class="form-control"> 
+				<label for="discountRate">Taux d'interet (en %) :</label> 
+				<input type="number" id="discountRate2" name="discountRate" required> 
+			</div> 
+			<div class="form-control"> 
+				<label for="discountDate">Date de placement :</label> 
+				<input type="date" id="discountDate2" name="discountDate" required> 
+			</div> 
+			<div class="form-control"> 
+				<label for="dueDate">Date de l'echeance :</label> 
+				<input type="date" id="dueDate2" name="dueDate" required> 
+			</div> 
+			<input type="submit" value="Calculer" onclick="calculatecapital()"> 
+		</form> 
+		<p id="result2">
+		</p>
+		<h1>Formule de calcul</h1>
+		<p>
+			valeur ajoute = Montant * (1 + Taux d'escompte * Nombre de jours entre la date de placement et la date de l'echeance / 365)
+			<br>
+			L'intérêt simple est basé sur un principe de proportionnalité de l'intérêt gagné au temps de placement.
+			Autrement dit, l'intérêt est une fonction linéaire de la durée.
+			<br>
+			Par exemple, Si on dépose un montant de 100TND sur un compte d'épargne dont le taux d'intérêt annuel s'élève à 4% .L'avoir du compte après une année sera :
+			<br>
+			100 + 0.04*100 =104 TND
+
+
+
+		</p>
+
+
+
+	</div> 
+	<script> 
+		function calculecheance() {
+			  event.preventDefault();
+
+		let amount = document.querySelector("#amount").value;
+		let discountRate = document.querySelector("#discountRate").value;
+		let discountDate = new Date(document.querySelector("#discountDate").value);
+		let dueDate = new Date(document.querySelector("#dueDate").value);
+		let diff = dueDate.getTime() - discountDate.getTime();
+		let days = diff / (1000 * 3600 * 24);
+		let discountCost = (amount * discountRate * days) / 36500;
+		let discountreel = discountCost / amount*100;
+
+		document.querySelector("#result").innerHTML = "Le coût de l'escompte est de : " + discountCost.toFixed(2) + " TND";
+		document.querySelector("#reel").innerHTML = "Le taux du coût d'escompte par rapport au Montant escompter est de  : " + discountreel.toFixed(2) + " %";
+
+		}
+		
+		function calculatecapital() {
+			event.preventDefault();
+
+			let amount = parseFloat(document.querySelector("#amount2").value);
+			let discountRate = parseFloat(document.querySelector("#discountRate2").value);
+			let discountDate = new Date(document.querySelector("#discountDate2").value);
+			let dueDate = new Date(document.querySelector("#dueDate2").value);
+			let diff = dueDate.getTime() - discountDate.getTime();
+			let days = diff / (1000 * 3600 * 24);
+			let interest = (amount * discountRate * days) / (365 * 100);
+			let valeurAjoute = amount + interest;
+
+			document.querySelector("#result2").innerHTML = "La valeur acquise est de : " + valeurAjoute.toFixed(2) + " TND";
+		}
+
+	</script>
+
+</body> 
+</html> 
